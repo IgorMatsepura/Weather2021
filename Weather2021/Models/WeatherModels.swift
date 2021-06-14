@@ -11,7 +11,7 @@ import UIKit
 
 struct WeatherModel {
     
-    var dt: Int
+    var dt: Double
     var dtString: String {
         return "\(dt)"
     }
@@ -46,10 +46,10 @@ struct WeatherModel {
     var windDegString: String {
         return "\(windDeg)"
     }
- //   let icon: UIImage
+    let icon: String
     
-    init(dt: Int, cityName: String, country: String, temperature: Double, humidity: Int, pressure: Int,
-         idIcon: Int, main: String, clouds: Int, windSpeed: Double, windDeg: Int ) {
+    init(dt: Double, cityName: String, country: String, temperature: Double, humidity: Int, pressure: Int,
+         idIcon: Int, main: String, clouds: Int, windSpeed: Double, windDeg: Int, icon: String ) {
         self.dt = dt
         self.cityName = cityName
         self.country = country
@@ -61,6 +61,7 @@ struct WeatherModel {
         self.clouds = clouds
         self.windSpeed = windSpeed
         self.windDeg = windDeg
+        self.icon = icon
         print("Init WeatherModels")
     }
     
@@ -77,6 +78,7 @@ struct WeatherModel {
         self.clouds = dataCurrentWeather.list!.first!.clouds!.all!
         self.windSpeed = dataCurrentWeather.list!.first!.wind!.speed!
         self.windDeg = dataCurrentWeather.list!.first!.wind!.deg!
+        self.icon = dataCurrentWeather.list!.first!.weather!.first!.icon!
         print(windSpeed)
     }
     

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="92" id="KGk-i7-Jjw" customClass="ForecastWeatherCell" customModule="Weather2021" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="371" height="92"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="371" height="92"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgX-xl-2da">
+                        <rect key="frame" x="133" y="11" width="122" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24 ºC" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN1-PJ-6tH">
+                        <rect key="frame" x="283" y="12" width="81" height="72"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="72" id="8V6-ND-FIr"/>
+                            <constraint firstAttribute="width" constant="81" id="tNR-lR-w8W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                        <color key="textColor" name="AccentColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="01d" translatesAutoresizingMaskIntoConstraints="NO" id="KLZ-MO-7A8">
+                        <rect key="frame" x="-6" y="0.0" width="122" height="95"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="122" id="PBo-jp-8xa"/>
+                            <constraint firstAttribute="height" constant="95" id="bSe-wu-qrJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRM-6c-t8x">
+                        <rect key="frame" x="133" y="40" width="54" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="KLZ-MO-7A8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="R37-5O-aSG"/>
+                    <constraint firstAttribute="trailing" secondItem="KLZ-MO-7A8" secondAttribute="trailing" constant="255" id="S5l-kG-ujb"/>
+                    <constraint firstItem="yN1-PJ-6tH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="283" id="Sbl-ll-26g"/>
+                    <constraint firstItem="XRM-6c-t8x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="YF4-ZA-2dL"/>
+                    <constraint firstItem="KLZ-MO-7A8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-6" id="YZI-5O-cED"/>
+                    <constraint firstItem="KgX-xl-2da" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="a9X-qw-dGO"/>
+                    <constraint firstAttribute="bottom" secondItem="yN1-PJ-6tH" secondAttribute="bottom" constant="11" id="ajW-iA-lDC"/>
+                    <constraint firstItem="KgX-xl-2da" firstAttribute="leading" secondItem="KLZ-MO-7A8" secondAttribute="trailing" constant="17" id="cmz-qn-rxM"/>
+                    <constraint firstItem="XRM-6c-t8x" firstAttribute="leading" secondItem="KLZ-MO-7A8" secondAttribute="trailing" constant="17" id="i5N-dC-ds3"/>
+                    <constraint firstAttribute="trailing" secondItem="yN1-PJ-6tH" secondAttribute="trailing" constant="7" id="oYI-kB-sgc"/>
+                    <constraint firstItem="yN1-PJ-6tH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="sG7-Ny-KCh"/>
+                    <constraint firstAttribute="trailing" secondItem="KgX-xl-2da" secondAttribute="trailing" constant="116" id="ugn-N9-fw8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cloudyLabel" destination="XRM-6c-t8x" id="dQO-Tl-0Ve"/>
+                <outlet property="temperatureLabel" destination="yN1-PJ-6tH" id="rDU-5D-hm6"/>
+                <outlet property="timeLabel" destination="KgX-xl-2da" id="cbe-AJ-1LC"/>
+                <outlet property="weatherImageView" destination="KLZ-MO-7A8" id="Stq-Oe-fcM"/>
+            </connections>
+            <point key="canvasLocation" x="-0.7246376811594204" y="61.607142857142854"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="01d" width="125" height="125"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

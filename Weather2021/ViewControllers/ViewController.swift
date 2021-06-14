@@ -8,10 +8,15 @@
 import UIKit
 import CoreLocation
 
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
+
+
 
 class ViewController: UIViewController {
 
-    
+    let db = Firestore.firestore()
     
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var cityCountryLbl: UILabel!
@@ -25,6 +30,7 @@ class ViewController: UIViewController {
     
     
     var managerFetch = ManagerFetch()
+    var iconManager = IconManager()
     
     lazy var locationManager:CLLocationManager = {
         let locataionManagerCity = CLLocationManager()
@@ -37,12 +43,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        managerFetch.delegate = self
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
+      //      self.forecastManager.navigationItem.title = self.cityCountryLbl.text
         }
-        
-     //   managerFetch.fetchTodayWeather(forLatitude: 48.507933, forLongitude: 32.262317, daysWeatherType: .giveFiveDayWeather)
     }
 }
 
@@ -53,10 +57,14 @@ extension ViewController: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-            
-        managerFetch.fetchTodayWeather(forLatitude: latitude, forLongitude: longitude, daysWeatherType: .dayTodayWeather)
-        print("This is \(latitude)")
-        print("This is \(longitude)")
+        
+        managerFetch.fetchTodayWeather(forLatitude: latitude, forLongitude: longitude, daysWeatherType: .giveTodayWeather) { [weak self] data in
+            DispatchQueue.main.async {
+                self?.updateUI(with: data)
+                
+            }
+        }
+        //completion(latitude, longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -80,25 +88,55 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-extension ViewController: ManagerFetchDelegate {
-    func updateUI(_: ManagerFetch, with weatherDataModel: DataCurrentWeather) {
-
-        let firstText = weatherDataModel.list!.first!
-        let cityText = weatherDataModel.city!
-        let windDirection = WindManagerWeather(Double(firstText.wind!.deg!))
-        print(windDirection)
-        DispatchQueue.main.async {
-            self.cityCountryLbl.text = "\(String(describing: cityText.name!)), \(String(describing: cityText.country!))"
-            self.temperatureLbl.text =  "\(String(Int((firstText.main!.temp!).rounded()) - 273)) ºC"
-            self.sunnyLbl.text = firstText.weather!.first!.main
-            self.humidityLbl.text = "\(String(firstText.main!.humidity!))%"
-            self.mainLbl.text = "\(firstText.clouds!.all!) mm"
-            self.pressureLbl.text = "\(String(firstText.main!.pressure!)) hPa"
-            self.windSpeedLbl.text = "\(String(Int(firstText.wind!.speed!))) km/h"
-            self.directionWind.text = "   \(windDirection)   "
-            
+extension ViewController  {
+    
+    
+    func updateUI(with weatherDataModel: DataCurrentWeather?) {
+        
+        guard let data = weatherDataModel else {
+            debugPrint("No data")
+            return
         }
+        
+        guard let firstText = data.list?.first,
+              let cityText = data.city,
+              let degree = firstText.wind?.deg  else {
+            debugPrint("Not enough data")
+            return
+        }
+        
+        let windDirection = WindManagerWeather(Double(degree))
+        print(windDirection)
+        self.cityCountryLbl.text = "\(String(describing: cityText.name ?? "Data Empty")), \(String(describing: cityText.country ?? "N / A"))"
+        self.sunnyLbl.text = firstText.weather!.first?.main ?? "N/A"
+        self.temperatureLbl.text =  "\(String(Int((firstText.main?.temp ?? 0)) - 273)) ºC"
+        self.humidityLbl.text = "\(String(firstText.main?.humidity ?? 0))%"
+        self.mainLbl.text = "\(String(describing: firstText.clouds?.all ?? 0)) mm"
+        self.pressureLbl.text = "\(String(firstText.main?.pressure ?? 0)) hPa"
+        self.windSpeedLbl.text = "\(String(Int(firstText.wind?.speed ?? 0))) km/h"
+        self.directionWind.text = "\(windDirection)"
+        let iconWeather = firstText.weather?.first?.icon
+        let weatherIcon = self.iconManager.iconWeather(stringIcon: iconWeather!)
+        imageIcon.image = weatherIcon
+        saveToFirebase(with: data)
     }
     
+    func saveToFirebase(with weatherDataModel: DataCurrentWeather?) {
+        
+        guard let data = weatherDataModel else {
+            debugPrint("Smth went wrong")
+            return
+        }
+        
+        let weatherModelForFirebase = WeatherModel(dataCurrentWeather: data)
+        let userRef = db.collection("city")
+        
+        Auth.auth().signInAnonymously { (result, error) in
+            let newCityRef = userRef.document()
+            let idFireBase = newCityRef.documentID
+            userRef.document(idFireBase).setData(weatherModelForFirebase!.representation) { (error) in    
+            }
+        }
+    }
 }
 

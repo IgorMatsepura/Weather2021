@@ -30,18 +30,18 @@ class DataCurrentWeather: Mappable {
 
 class List: Mappable {
     
-    var dt: Int?
+    var dt: Double?
     var main: Main?
     var weather:[Weather]?
     var wind: Wind?
     var clouds: Clouds?
     var dtTxt: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case dt, main, weather, wind, clouds
-        case dtTxt = "dt_txt"
-    }
-    
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case dt, main, weather, wind, clouds
+//        case dtTxt = "dt_txt"
+//    }
+//    
     func mapping(map: Map) {
         dt <- map["dt"]
         main <- map["main"]
@@ -75,10 +75,12 @@ class Weather: Mappable {
     
     var id: Int?
     var main: String?
+    var icon: String?
     
     func mapping(map: Map) {
         id <- map["id"]
         main <- map["main"]
+        icon <- map["icon"]
     }
     
     required init?(map: Map) {

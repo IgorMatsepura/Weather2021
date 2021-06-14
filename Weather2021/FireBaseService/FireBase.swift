@@ -22,7 +22,7 @@ class RegisterCityWeather {
            // let refDb = self.db.collection("CityWeather")
             
             
-            let saveModel = WeatherModel(dt: 90, cityName: "Kiev", country: "UA", temperature: 38.2, humidity: 1111, pressure: 60, idIcon: 500, main: "Rain", clouds: 8, windSpeed: 12.3, windDeg: 260)
+            let saveModel = WeatherModel(dt: 90, cityName: "Kiev", country: "UA", temperature: 38.2, humidity: 1111, pressure: 60, idIcon: 500, main: "Rain", clouds: 8, windSpeed: 12.3, windDeg: 260, icon: "10d")
             
             self.db.collection("City").document(saveModel.cityName).setData(saveModel.representation) { [weak self] (error) in
                 if let error = error {
@@ -35,7 +35,8 @@ class RegisterCityWeather {
     }
 }
 
-extension RegisterCityWeather: ManagerFetchDelegate {
+extension RegisterCityWeather  {
+    
     func updateUI(_: ManagerFetch, with weatherDataModel: DataCurrentWeather) {
         if let list = weatherDataModel.list {
             for forecastWeather in list {
@@ -49,7 +50,7 @@ extension RegisterCityWeather: ManagerFetchDelegate {
             
             let weatherModel = WeatherModel?.self
             
-            let saveModel = WeatherModel(dt: 90, cityName: "Kiev", country: "UA", temperature: 38.2, humidity: 1111, pressure: 60, idIcon: 500, main: "Rain", clouds: 8, windSpeed: 12.3, windDeg: 260)
+            let saveModel = WeatherModel(dt: 90, cityName: "Kiev", country: "UA", temperature: 38.2, humidity: 1111, pressure: 60, idIcon: 500, main: "Rain", clouds: 8, windSpeed: 12.3, windDeg: 260, icon: "10d")
             
             self.db.collection("City").document(saveModel.cityName).setData(saveModel.representation) { (error) in
                 if let error = error {
